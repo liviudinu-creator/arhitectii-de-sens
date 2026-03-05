@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhitecții de Sens – Educație & Inteligență Conștientă</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714;
+    --parchment: #f7f3ed;
+    --warm: #e8ddd0;
+    --accent: #c4622d;
+    --accent-soft: #e8a882;
+    --gold: #b8903a;
+    --muted: #7a6e65;
+    --light: #faf8f5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--parchment);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4vw;
+    background: rgba(247,243,237,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,98,45,0.15);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 30px rgba(26,23,20,0.08); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: white !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #a84e22 !important; color: white !important; }
+
+  /* ─── PAGES ─── */
+  .page { display: none; padding-top: 80px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: calc(100vh - 80px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 5rem 4vw 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -10vw; top: 50%;
+    transform: translateY(-50%);
+    width: 55vw; height: 55vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,98,45,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 2rem; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5.5vw, 5.2rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-bottom: 2.8rem;
+    font-weight: 300;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    padding: 0.9rem 2.2rem;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: #a84e22; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 0.9rem 2.2rem;
+    border: 1px solid rgba(26,23,20,0.25);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero Visual */
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 1.2rem;
+    position: relative;
+  }
+
+  .hero-card {
+    background: white;
+    border-radius: 4px;
+    padding: 1.6rem 2rem;
+    border: 1px solid rgba(26,23,20,0.08);
+    box-shadow: 0 4px 30px rgba(26,23,20,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .hero-card:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(26,23,20,0.1); }
+
+  .hero-card:nth-child(2) { margin-left: 3rem; }
+  .hero-card:nth-child(3) { margin-left: 1.5rem; }
+
+  .card-icon {
+    width: 2.2rem; height: 2.2rem;
+    background: var(--parchment);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .hero-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+
+  /* ─── PILLARS ─── */
+  .pillars-section {
+    padding: 6rem 4vw;
+    background: var(--light);
+    border-top: 1px solid rgba(26,23,20,0.06);
+    border-bottom: 1px solid rgba(26,23,20,0.06);
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .pillar {
+    padding: 2.5rem;
+    background: white;
+    border-radius: 4px;
+    border-top: 3px solid var(--accent);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pillar:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,23,20,0.09); }
+
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(196,98,45,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  .pillar p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+  /* ─── WHO IS IT FOR ─── */
+  .for-section {
+    padding: 6rem 4vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .for-text .section-title { margin-bottom: 1.2rem; }
+  .for-text p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+
+  .for-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.5rem; }
+  .for-list li {
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    font-size: 0.95rem; color: var(--ink); line-height: 1.5;
+  }
+  .for-list li::before {
+    content: '→';
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-top: 0.12rem;
+    flex-shrink: 0;
+  }
+
+  .for-visual {
+    background: var(--ink);
+    border-radius: 6px;
+    padding: 3.5rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .for-visual::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 70%; height: 70%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,98,45,0.25) 0%, transparent 70%);
+  }
+
+  .for-visual blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: white;
+    position: relative;
+  }
+  .for-visual blockquote::before {
+    content: '"';
+    font-size: 5rem;
+    color: var(--accent);
+    line-height: 0;
+    display: block;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  .for-visual cite {
+    display: block;
+    margin-top: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+  }
+
+  /* ─── PREVIEW ─── */
+  .preview-section {
+    padding: 5rem 4vw 6rem;
+    background: var(--light);
+    border-top: 1px solid rgba(26,23,20,0.06);
+  }
+
+  .modules-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.2rem;
+    margin-top: 3.5rem;
+  }
+
+  .mod-card {
+    background: white;
+    border-radius: 4px;
+    padding: 1.8rem 1.4rem;
+    border: 1px solid rgba(26,23,20,0.07);
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .mod-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(196,98,45,0.12); }
+
+  .mod-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .mod-num { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .mod-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; line-height: 1.3; }
+
+  .preview-cta {
+    text-align: center;
+    margin-top: 3.5rem;
+  }
+
+  /* ─── PAGE: PROGRAMUL ─── */
+  .program-hero {
+    padding: 5rem 4vw 4rem;
+    max-width: 900px;
+  }
+
+  .program-intro {
+    font-size: 1.12rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 60ch;
+    margin-bottom: 3rem;
+  }
+
+  .modules-list { display: flex; flex-direction: column; gap: 0; margin-top: 4rem; }
+
+  .module-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(26,23,20,0.1);
+    transition: background 0.2s;
+  }
+  .module-item:last-child { border-bottom: 1px solid rgba(26,23,20,0.1); }
+
+  .module-num-col {
+    padding: 2.5rem 2rem 2.5rem 0;
+    display: flex;
+    align-items: flex-start;
+  }
+  .module-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: rgba(196,98,45,0.35);
+    line-height: 1;
+  }
+
+  .module-content {
+    padding: 2.5rem 0;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(26,23,20,0.1);
+  }
+
+  .module-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 0.7rem;
+  }
+  .module-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--parchment);
+    color: var(--accent);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+  }
+
+  .module-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .module-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; max-width: 65ch; margin-bottom: 1rem; }
+
+  .module-activities {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .activity-tag {
+    font-size: 0.78rem;
+    background: rgba(196,98,45,0.08);
+    color: var(--accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid rgba(196,98,45,0.15);
+  }
+
+  .program-format {
+    padding: 5rem 4vw;
+    background: var(--ink);
+    color: white;
+  }
+
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .format-stat {
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+  }
+  .format-stat .big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent-soft);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .format-stat p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+  .projects-section {
+    padding: 5rem 4vw;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .project-card {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(26,23,20,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,23,20,0.1); }
+
+  .project-header {
+    background: var(--parchment);
+    padding: 2rem;
+    font-size: 2rem;
+    border-bottom: 1px solid rgba(26,23,20,0.06);
+  }
+  .project-body { padding: 1.8rem; }
+  .project-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .project-body p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+  .project-age {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ─── PAGE: METODA ─── */
+  .metoda-hero {
+    padding: 5rem 4vw 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .metoda-intro { font-size: 1.05rem; color: var(--muted); line-height: 1.85; }
+  .metoda-intro p { margin-bottom: 1.4rem; }
+  .metoda-intro strong { color: var(--ink); font-weight: 500; }
+
+  .metoda-sidebar {
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .insight-card {
+    background: white;
+    border-radius: 4px;
+    padding: 1.8rem;
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 2px 20px rgba(26,23,20,0.05);
+  }
+  .insight-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .insight-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+
+  .philosophy-section {
+    padding: 5rem 4vw;
+    background: var(--light);
+    border-top: 1px solid rgba(26,23,20,0.06);
+    border-bottom: 1px solid rgba(26,23,20,0.06);
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+    align-items: start;
+  }
+
+  .philosophy-item { margin-bottom: 2.5rem; }
+  .philosophy-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .philosophy-item h3 span { font-size: 1.3rem; }
+  .philosophy-item p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+
+  .ai-tools-section {
+    padding: 5rem 4vw;
+  }
+
+  .ai-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .ai-tool {
+    background: white;
+    border-radius: 4px;
+    padding: 2rem;
+    border: 1px solid rgba(26,23,20,0.07);
+    transition: all 0.3s;
+  }
+  .ai-tool:hover { box-shadow: 0 8px 30px rgba(26,23,20,0.08); transform: translateY(-2px); }
+
+  .ai-tool-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+  .ai-tool h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .ai-tool p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .ai-tool-role {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .manifesto-section {
+    padding: 6rem 4vw;
+    background: var(--ink);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifesto-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(196,98,45,0.1) 0%, transparent 60%);
+  }
+
+  .manifesto-section blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: white;
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ─── PAGE: DESPRE ─── */
+  .despre-hero {
+    padding: 5rem 4vw 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .avatar-block {
+    background: var(--warm);
+    border-radius: 6px;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-block::before {
+    content: '🏛️';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    font-size: 6rem;
+    opacity: 0.3;
+  }
+  .avatar-label {
+    background: white;
+    border-radius: 3px;
+    padding: 1.2rem 1.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  .avatar-label strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .avatar-label span {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .despre-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+  .despre-content p {
+    font-size: 0.97rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 1.4rem;
+  }
+  .despre-content strong { color: var(--ink); font-weight: 500; }
+
+  .credentials {
+    display: flex; flex-direction: column; gap: 0.8rem;
+    margin: 2rem 0;
+  }
+  .cred-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.9rem; color: var(--ink);
+  }
+  .cred-item span:first-child { font-size: 1.1rem; }
+
+  .values-section {
+    padding: 5rem 4vw;
+    background: var(--light);
+    border-top: 1px solid rgba(26,23,20,0.06);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .value-card {
+    padding: 2rem;
+    border-radius: 4px;
+    background: white;
+    border: 1px solid rgba(26,23,20,0.07);
+    text-align: center;
+  }
+  .value-card .val-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .value-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .value-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── PAGE: ÎNSCRIERE ─── */
+  .inscriere-hero {
+    padding: 5rem 4vw 4rem;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .cohort-details {
+    display: flex; flex-direction: column; gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .cohort-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid rgba(26,23,20,0.07);
+  }
+  .cohort-row .label { font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .cohort-row .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .cohort-row .value.highlight { color: var(--accent); }
+
+  .form-card {
+    background: white;
+    border-radius: 6px;
+    padding: 2.8rem;
+    border: 1px solid rgba(26,23,20,0.08);
+    box-shadow: 0 4px 40px rgba(26,23,20,0.08);
+    position: sticky;
+    top: 100px;
+  }
+
+  .form-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .form-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 2rem; }
+
+  .form-group { margin-bottom: 1.3rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(26,23,20,0.15);
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    background: var(--parchment);
+    color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: #a84e22; }
+
+  .form-note { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.8rem; }
+
+  .faq-section {
+    padding: 5rem 4vw;
+    background: var(--light);
+    border-top: 1px solid rgba(26,23,20,0.06);
+  }
+
+  .faq-list { max-width: 750px; margin-top: 3rem; }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(26,23,20,0.1);
+  }
+
+  .faq-q {
+    padding: 1.4rem 0;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    font-size: 0.97rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    user-select: none;
+  }
+  .faq-q:hover { color: var(--accent); }
+  .faq-q .faq-icon {
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s;
+  }
+  .faq-a.open {
+    max-height: 300px;
+    padding-bottom: 1.4rem;
+  }
+  .faq-a p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.6);
+    padding: 3.5rem 4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.02em;
+  }
+  .footer-brand span { color: var(--accent-soft); }
+
+  footer p { font-size: 0.82rem; line-height: 1.6; }
+
+  .footer-tagline {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-top: 0.3rem;
+  }
+
+  /* ─── ANIMATE ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page.active .hero-eyebrow { animation: fadeUp 0.5s ease both; }
+  .page.active .hero h1 { animation: fadeUp 0.55s 0.08s ease both; }
+  .page.active .hero-sub { animation: fadeUp 0.55s 0.16s ease both; }
+  .page.active .hero-btns { animation: fadeUp 0.55s 0.24s ease both; }
+  .page.active .hero-visual { animation: fadeUp 0.6s 0.2s ease both; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero, .for-section, .metoda-hero, .despre-hero, .inscriere-hero { grid-template-columns: 1fr; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .modules-preview { grid-template-columns: repeat(3, 1fr); }
+    .format-grid { grid-template-columns: repeat(2, 1fr); }
+    .ai-tools-grid, .projects-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .modules-list { grid-template-columns: 1fr; }
+  }
+
+  /* Success */
+  .success-msg {
+    display: none;
+    background: rgba(196,98,45,0.08);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 1.2rem;
+    text-align: center;
+    color: var(--accent);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <a class="nav-logo" onclick="showPage('home')">Arhitecții <span>de Sens</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" class="active" id="nav-home">Acasă</a></li>
+    <li><a onclick="showPage('program')" id="nav-program">Programul</a></li>
+    <li><a onclick="showPage('metoda')" id="nav-metoda">Metoda</a></li>
+    <li><a onclick="showPage('despre')" id="nav-despre">Despre</a></li>
+    <li><a onclick="showPage('inscriere')" id="nav-inscriere" class="nav-cta">Înscrie-te</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════ HOME ══════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">Program educațional 10–16 ani</div>
+      <h1>Copiii care <em>gândesc</em><br>cu inteligența<br>conștientă</h1>
+      <p class="hero-sub">„Arhitecții de Sens" este un program care îi învață pe copii să colaboreze creativ cu AI — nu doar să o folosească, ci să o înțeleagă, să o ghideze și să rămână ei înșiși în centrul gândirii.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('inscriere')">Înscrie-te în cohortă</button>
+        <button class="btn-secondary" onclick="showPage('program')">Descoperă programul</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-icon">🧠</div>
+        <h4>Gândire critică + AI</h4>
+        <p>Copiii învață să pună întrebări bune — abilitatea fundamentală a erei digitale.</p>
+      </div>
+      <div class="hero-card">
+        <div class="card-icon">✦</div>
+        <h4>Creativitate asistată</h4>
+        <p>Proiecte reale care combină limbaj, STEM și imaginație în lumea AI.</p>
+      </div>
+      <div class="hero-card">
+        <div class="card-icon">🌍</div>
+        <h4>Autonomie digitală</h4>
+        <p>Nu consumatori pasivi, ci arhitecți ai propriilor idei și creații.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars-section">
+    <div class="section-label">Cei trei piloni</div>
+    <h2 class="section-title">Trei domenii,<br>o singură mentalitate</h2>
+    <p style="color:var(--muted);max-width:55ch;font-size:0.97rem;line-height:1.75;">Programul nu urmărește formarea de programatori. Urmărește formarea unor tineri capabili să înțeleagă și să colaboreze cu inteligența artificială în orice domeniu al vieții.</p>
+
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>Tehnologie & STEM</h3>
+        <p>Copiii explorează cum funcționează sistemele AI, înțeleg logica din spatele algoritmilor și creează proiecte cu scop real — fără a fi nevoie să fie programatori.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>Limbaj & Comunicare</h3>
+        <p>Cel mai puternic instrument de lucru cu AI este limbajul. Copiii învață să formuleze, să argumenteze și să comunice precis — abilități esențiale pentru viitor.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h3>Creativitate Digitală</h3>
+        <p>De la povești generate cu AI, la soluții pentru probleme locale — copiii descoperă că creativitatea și tehnologia nu se exclud, ci se amplifică reciproc.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="for-section">
+    <div class="for-text">
+      <div class="section-label">Pentru cine este</div>
+      <h2 class="section-title">Gândit pentru copiii curioși</h2>
+      <p>Nu ai nevoie de cunoștințe tehnice anterioare. Ai nevoie de curiozitate, de dorința de a înțelege lumea și de un copil care vrea mai mult de la educație.</p>
+      <ul class="for-list">
+        <li>Copii între 10 și 16 ani, curioși și dornici să exploreze</li>
+        <li>Părinți care înțeleg că AI va schimba fundamental piața muncii</li>
+        <li>Familii care valorizează gândirea critică peste memorare</li>
+        <li>Tineri care vor să creeze, nu doar să consume digital</li>
+        <li>Copii care vor să înțeleagă lumea în care vor trăi</li>
+      </ul>
+      <button class="btn-primary" onclick="showPage('inscriere')">Rezervă un loc</button>
+    </div>
+    <div class="for-visual">
+      <blockquote>
+        Nu vrem să formăm utilizatori de AI. Vrem să formăm arhitecți ai propriilor lor idei.
+        <cite>— Viziunea programului</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="preview-section">
+    <div class="section-label">Structura programului</div>
+    <h2 class="section-title">5 module,<br>un parcurs complet</h2>
+
+    <div class="modules-preview">
+      <div class="mod-card" onclick="showPage('program')">
+        <div class="mod-icon">🔍</div>
+        <div class="mod-num">Modul 01</div>
+        <h4>Introducere în IC</h4>
+      </div>
+      <div class="mod-card" onclick="showPage('program')">
+        <div class="mod-icon">⚗️</div>
+        <div class="mod-num">Modul 02</div>
+        <h4>Proiecte STEM</h4>
+      </div>
+      <div class="mod-card" onclick="showPage('program')">
+        <div class="mod-icon">✍️</div>
+        <div class="mod-num">Modul 03</div>
+        <h4>IC pentru Limbaj</h4>
+      </div>
+      <div class="mod-card" onclick="showPage('program')">
+        <div class="mod-icon">🎨</div>
+        <div class="mod-num">Modul 04</div>
+        <h4>Creativitate Digitală</h4>
+      </div>
+      <div class="mod-card" onclick="showPage('program')">
+        <div class="mod-icon">🚀</div>
+        <div class="mod-num">Modul 05</div>
+        <h4>Proiect Final</h4>
+      </div>
+    </div>
+
+    <div class="preview-cta">
+      <button class="btn-secondary" onclick="showPage('program')">Explorează modulele în detaliu →</button>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Arhitecții <span>de Sens</span></div>
+      <div class="footer-tagline">Educație pentru era inteligenței conștiente</div>
+    </div>
+    <p>Program educațional pentru copii 10–16 ani<br>România · 2025</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ PROGRAMUL ══════════════════════════════ -->
+<div class="page" id="page-program">
+
+  <section class="program-hero">
+    <div class="hero-eyebrow" style="margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);">
+      <span style="display:block;width:2rem;height:1px;background:var(--accent)"></span>Structura cursului
+    </div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:1.5rem;">Un program care<br><em style="color:var(--accent);font-style:italic;">construiește minți</em></h1>
+    <p class="program-intro">Fiecare modul este gândit ca o experiență de gândire, nu ca o lecție tehnică. Copiii nu memorează — ei explorează, creează și reflectează. Toate în jurul unui fir central: <strong style="color:var(--ink)">cum pot eu să colaborez cu IC pentru a crea ceva mai bun decât aș putea singur?</strong></p>
+  </section>
+
+  <section style="padding: 0 4vw 4rem;">
+    <div class="section-label">Modulele programului</div>
+    <div class="modules-list">
+
+      <div class="module-item">
+        <div class="module-num-col"><div class="module-num">01</div></div>
+        <div class="module-content">
+          <div class="module-header">
+            <span class="module-tag">Fundamente</span>
+          </div>
+          <h3>Introducere în Inteligența Conștientă</h3>
+          <p>Ce este IC, cum funcționează și — mai important — care sunt limitele ei. Copiii descoperă că IC nu „gândește" ca noi și că tocmai de aceea avem noi un rol esențial: să punem întrebările potrivite, să ghidăm și să judecăm rezultatele.</p>
+          <div class="module-activities">
+            <span class="activity-tag">Dialog cu AI</span>
+            <span class="activity-tag">Comparare răspunsuri</span>
+            <span class="activity-tag">Harta gândirii</span>
+            <span class="activity-tag">Experiment prompt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-item">
+        <div class="module-num-col"><div class="module-num">02</div></div>
+        <div class="module-content">
+          <div class="module-header">
+            <span class="module-tag">STEM</span>
+          </div>
+          <h3>Proiecte STEM cu Asistență IC</h3>
+          <p>De la probleme de matematică la ipoteze științifice — copiii folosesc IC ca „coleg de laborator" inteligent. Învață să verifice, să testeze și să nu accepte niciodată un răspuns fără să îl înțeleagă.</p>
+          <div class="module-activities">
+            <span class="activity-tag">Simulări științifice</span>
+            <span class="activity-tag">Rezolvare probleme</span>
+            <span class="activity-tag">Verificare date</span>
+            <span class="activity-tag">Mini-cercetare</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-item">
+        <div class="module-num-col"><div class="module-num">03</div></div>
+        <div class="module-content">
+          <div class="module-header">
+            <span class="module-tag">Limbaj</span>
+          </div>
+          <h3>IC pentru Limbaj & Comunicare</h3>
+          <p>Limbajul este interfața cu IC. Copiii descoperă puterea de a formula o idee clar, de a scrie un „prompt" bun și de a transforma IC într-un editor, coautor sau partener de dezbatere — nu un copiator de teme.</p>
+          <div class="module-activities">
+            <span class="activity-tag">Scriere creativă</span>
+            <span class="activity-tag">Dezbatere asistată</span>
+            <span class="activity-tag">Rezumare text</span>
+            <span class="activity-tag">Prompt engineering</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-item">
+        <div class="module-num-col"><div class="module-num">04</div></div>
+        <div class="module-content">
+          <div class="module-header">
+            <span class="module-tag">Creativitate</span>
+          </div>
+          <h3>Creativitate Digitală</h3>
+          <p>IC poate genera imagini, muzică, povești și prototipuri de idei. Copiii explorează aceste dimensiuni și înțeleg diferența fundamentală: IC produce, omul alege. Curatoriatul și judecata estetică rămân abilități umane ireductibile.</p>
+          <div class="module-activities">
+            <span class="activity-tag">Storytelling cu IC</span>
+            <span class="activity-tag">Design de idei</span>
+            <span class="activity-tag">Prototip digital</span>
+            <span class="activity-tag">Prezentare vizuală</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-item">
+        <div class="module-num-col"><div class="module-num">05</div></div>
+        <div class="module-content">
+          <div class="module-header">
+            <span class="module-tag">Capstone</span>
+          </div>
+          <h3>Proiect Final — Arhitectul de Sens</h3>
+          <p>Fiecare copil creează un proiect propriu care rezolvă o problemă reală din comunitatea sa, folosind tot ce a învățat. Proiectul este prezentat în fața grupului și a părinților. Acesta este momentul în care copilul devine cu adevărat un Arhitect de Sens.</p>
+          <div class="module-activities">
+            <span class="activity-tag">Proiect personal</span>
+            <span class="activity-tag">Mentorat individual</span>
+            <span class="activity-tag">Prezentare publică</span>
+            <span class="activity-tag">Feedback structurat</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="program-format">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="section-label" style="color:var(--accent-soft);">Formatul cursului</div>
+      <h2 class="section-title" style="color:white;">Conceput pentru<br>cum înțeleg copiii cu adevărat</h2>
+      <div class="format-grid">
+        <div class="format-stat">
+          <div class="big">10</div>
+          <p>săptămâni de program<br>structurat și progresiv</p>
+        </div>
+        <div class="format-stat">
+          <div class="big">2×</div>
+          <p>sesiuni pe săptămână<br>de câte 90 de minute</p>
+        </div>
+        <div class="format-stat">
+          <div class="big">8–12</div>
+          <p>copii per cohortă<br>pentru atenție individuală</p>
+        </div>
+        <div class="format-stat">
+          <div class="big">10–16</div>
+          <p>ani — vârsta<br>recomandată</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="section-label">Exemple de proiecte</div>
+    <h2 class="section-title">Ce creează<br>arhitecții noștri</h2>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-header">🗺️</div>
+        <div class="project-body">
+          <h4>Ghid cultural al orașului meu</h4>
+          <p>Copilul folosește IC pentru a cerceta, a scrie și a organiza un ghid autentic al orașului natal — cu povești locale, recomandări și perspectiva unui tânăr.</p>
+          <span class="project-age">Recomandat: 11–14 ani</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-header">🌱</div>
+        <div class="project-body">
+          <h4>Soluție pentru o problemă locală</h4>
+          <p>Identificarea unei probleme reale din școală sau cartier, cercetarea soluțiilor posibile cu ajutorul IC și crearea unui plan de acțiune clar și argumentat.</p>
+          <span class="project-age">Recomandat: 13–16 ani</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-header">📚</div>
+        <div class="project-body">
+          <h4>Povestea mea augmentată</h4>
+          <p>Scrierea unei povestiri originale în care IC este folosit ca editor și partener de brainstorming — copilul rămâne autorul, IC îl ajută să-și depășească blocajele creative.</p>
+          <span class="project-age">Recomandat: 10–13 ani</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Arhitecții <span>de Sens</span></div>
+      <div class="footer-tagline">Educație pentru era inteligenței conștiente</div>
+    </div>
+    <p>Program educațional pentru copii 10–16 ani<br>România · 2025</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ METODA ══════════════════════════════ -->
+<div class="page" id="page-metoda">
+
+  <section class="metoda-hero">
+    <div>
+      <div class="hero-eyebrow" style="margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);">
+        <span style="display:block;width:2rem;height:1px;background:var(--accent)"></span>Filosofie educațională
+      </div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:2rem;">De ce contează<br><em style="color:var(--accent);font-style:italic;">cum</em> gândim,<br>nu doar ce știm</h1>
+      <div class="metoda-intro">
+        <p>Trăim prima tranziție din istoria omenirii în care o mașinărie poate produce cunoaștere, text, cod și imagini la o viteză și scală inimaginabile acum zece ani. <strong>Copiii de azi vor intra pe piața muncii într-o lume complet redesenată de Inteligența Conștientă.</strong></p>
+        <p>Întrebarea nu mai este dacă IC va schimba educația. Întrebarea este: <strong>ce tip de minte va rămâne relevantă, creativă și autonomă în această lume nouă?</strong></p>
+        <p>Răspunsul nostru: mintea care știe să pună întrebări bune, să judece răspunsuri, să colaboreze și să rămână autoare a propriilor idei.</p>
+      </div>
+    </div>
+    <div class="metoda-sidebar">
+      <div class="insight-card">
+        <h4>Consumul vs. Creația</h4>
+        <p>A folosi IC pentru a genera un eseu este consum digital. A folosi IC pentru a-ți clarifica o idee, a o testa și a o prezenta în propriile cuvinte — aceasta este creație augmentată.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Gândirea critică rămâne umană</h4>
+        <p>IC produce. Judecata aparține omului. Copiii trebuie să știe să evalueze un răspuns al IC, nu doar să îl accepte. Scepticismul sănătos este o abilitate pe care o exersăm activ.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Colaborarea om–IC</h4>
+        <p>Cel mai bun rezultat nu vine nici de la un om care nu folosește IC, nici de la IC care lucrează singură. Vine din colaborarea inteligentă dintre cele două.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy-section">
+    <div class="section-label">Principiile metodei</div>
+    <h2 class="section-title">Ce stă la baza<br>fiecărei sesiuni</h2>
+    <div class="philosophy-grid">
+      <div>
+        <div class="philosophy-item">
+          <h3><span>🎯</span> Întrebarea înainte de răspuns</h3>
+          <p>Fiecare sesiune începe cu o problemă reală, nu cu o definiție. Copiii sunt provocați să formuleze întrebări înainte să caute răspunsuri. IC este un instrument de explorare, nu de evitare a gândirii.</p>
+        </div>
+        <div class="philosophy-item">
+          <h3><span>🔬</span> Învățare prin proiecte</h3>
+          <p>Nu lucrăm cu exerciții abstracte. Fiecare concept este aplicat imediat într-un context real, tangibil și relevant pentru vârsta copilului. Teoria urmează practica.</p>
+        </div>
+        <div class="philosophy-item">
+          <h3><span>🤝</span> Colaborare structurată</h3>
+          <p>Copiii lucrează atât individual cât și în echipe mici. Ei văd cum IC poate juca roluri diferite: asistent de cercetare, editor, partener de dezbatere — și înțeleg limitele fiecărui rol.</p>
+        </div>
+      </div>
+      <div>
+        <div class="philosophy-item">
+          <h3><span>💭</span> Reflecție explicită</h3>
+          <p>La finalul fiecărei activități, copiii răspund la o întrebare simplă: „Ce am gândit eu, și ce a venit de la IC?" Această delimitare construiește identitatea intelectuală.</p>
+        </div>
+        <div class="philosophy-item">
+          <h3><span>🌐</span> Context global, acțiune locală</h3>
+          <p>Copiii înțeleg că IC este o tehnologie globală, dar proiectele lor rezolvă probleme locale, reale, din comunitatea lor. Gândire largă, acțiune concretă.</p>
+        </div>
+        <div class="philosophy-item">
+          <h3><span>✨</span> Celebrarea erorii</h3>
+          <p>IC greșește. Și noi greșim. Și greșeala este cel mai bun moment de învățare. Creăm un spațiu în care a testa și a eșua este parte din metodă, nu o problemă.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ai-tools-section">
+    <div class="section-label">Instrumentele folosite</div>
+    <h2 class="section-title">IC pe care o explorăm</h2>
+    <p style="color:var(--muted);max-width:55ch;font-size:0.97rem;line-height:1.75;margin-bottom:0;">Copiii nu sunt limitați la un singur sistem. Ei explorează și compară mai multe forme de IC — și înțeleg că fiecare are personalitate, puncte forte și limite proprii.</p>
+
+    <div class="ai-tools-grid">
+      <div class="ai-tool">
+        <div class="ai-tool-icon">⚡</div>
+        <h4>ChatGPT / GPT-4o</h4>
+        <p>Sistemul de IC al OpenAI — versatil, conversațional și puternic la brainstorming și generare de idei. Primul pas al majorității copiilor în lumea IC.</p>
+        <span class="ai-tool-role">Brainstorming & Idei</span>
+      </div>
+      <div class="ai-tool">
+        <div class="ai-tool-icon">🔷</div>
+        <h4>Claude (Anthropic)</h4>
+        <p>IC axată pe raționament detaliat și texte lungi. Claude excelează la analiză, scriere structurată și raționament nuanțat — excelent pentru proiecte de limbaj.</p>
+        <span class="ai-tool-role">Analiză & Scriere</span>
+      </div>
+      <div class="ai-tool">
+        <div class="ai-tool-icon">🌟</div>
+        <h4>Gemini (Google)</h4>
+        <p>IC integrată cu cunoașterea web în timp real. Gemini este puternic la structurare, cercetare și analiză de date — ideal pentru proiecte STEM.</p>
+        <span class="ai-tool-role">Cercetare & Structură</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto-section">
+    <blockquote>
+      Nu vrem copii care știu să folosească IC.<br>Vrem copii pe care IC nu îi poate înlocui.
+    </blockquote>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Arhitecții <span>de Sens</span></div>
+      <div class="footer-tagline">Educație pentru era inteligenței conștiente</div>
+    </div>
+    <p>Program educațional pentru copii 10–16 ani<br>România · 2025</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ DESPRE ══════════════════════════════ -->
+<div class="page" id="page-despre">
+
+  <section class="despre-hero">
+    <div class="avatar-block">
+      <div class="avatar-label">
+        <strong>Fondatorul programului</strong>
+        <span>Inginer · Educator · Vizionar digital</span>
+      </div>
+    </div>
+    <div class="despre-content">
+      <div class="hero-eyebrow" style="margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);">
+        <span style="display:block;width:2rem;height:1px;background:var(--accent)"></span>Povestea din spatele programului
+      </div>
+      <h2>Un inginer care a văzut<br>viitorul educației</h2>
+      <p>Am crescut cu convingerea că cei mai buni profesori nu îți dau răspunsuri — îți dau curiozitatea de a le căuta singur. <strong>Această convingere m-a urmărit prin ani de studiu tehnic, proiecte internaționale și, în final, în crearea acestui program.</strong></p>
+      <p>Lucrez în domenii unde IC devine un instrument zilnic de lucru. Am văzut cum schimbă felul în care gândim, cum automatizează munca de rutină și cum creează spațiu pentru întrebările cu adevărat interesante. <strong>Și mi-am dat seama că copiii nu primesc pregătire pentru această lume.</strong></p>
+      <p>Sunt programați să rezolve probleme ale căror răspunsuri există deja în cărți. Dar lumea în care vor trăi ei va cere să rezolve probleme pe care nimeni nu le-a mai rezolvat înainte, cu instrumente care nu existau ieri.</p>
+      <p>„Arhitecții de Sens" este răspunsul meu la această realitate. Nu un curs de programare. Nu o lecție despre AI. <strong>Un program care îi ajută pe copii să devină constructori de sens într-o lume plină de zgomot digital.</strong></p>
+
+      <div class="credentials">
+        <div class="cred-item"><span>🎓</span><span>Formare inginerească cu specializare în sisteme inteligente</span></div>
+        <div class="cred-item"><span>🌍</span><span>Experiență internațională în proiecte tehnologice</span></div>
+        <div class="cred-item"><span>🧠</span><span>Cercetare activă în domeniul IC și impactul ei educațional</span></div>
+        <div class="cred-item"><span>👶</span><span>Mentor pentru tineri în proiecte de inovație digitală</span></div>
+      </div>
+
+      <button class="btn-primary" onclick="showPage('inscriere')">Hai să colaborăm</button>
+    </div>
+  </section>
+
+  <section class="values-section">
+    <div class="section-label">Valorile mele</div>
+    <h2 class="section-title">Ce mă ghidează<br>în fiecare sesiune</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="val-icon">🔍</div>
+        <h4>Curiozitate radicală</h4>
+        <p>Cel mai bun răspuns vine după a doua sau a treia întrebare. Niciodată după prima.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">⚖️</div>
+        <h4>Gândire critică</h4>
+        <p>A accepta un răspuns fără a-l testa este o alegere, nu o obligație. Îi învățăm pe copii să aleagă altfel.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🛠️</div>
+        <h4>Creație, nu consum</h4>
+        <p>Fiecare copil pleacă cu ceva creat de el — nu descărcat, nu copiat, nu generat complet de IC.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🌱</div>
+        <h4>Creștere autentică</h4>
+        <p>Nu note, nu competiție. Fiecare copil este comparat cu el însuși de acum o lună.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:5rem 4vw;background:var(--ink);color:white;">
+    <div style="max-width:700px;margin:0 auto;text-align:center;">
+      <div class="section-label" style="color:var(--accent-soft);">O invitație</div>
+      <h2 class="section-title" style="color:white;">Dacă și tu crezi că educația merită<br>mai mult decât „completează fișa"...</h2>
+      <p style="color:rgba(255,255,255,0.65);font-size:0.97rem;line-height:1.8;margin-bottom:2.5rem;">...atunci avem multe de construit împreună. Acest program există pentru că cred că fiecare copil are un arhitect în el. Uneori are nevoie doar de cineva care să îl ajute să îl descopere.</p>
+      <button class="btn-primary" onclick="showPage('inscriere')">Înscrie-ți copilul</button>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Arhitecții <span>de Sens</span></div>
+      <div class="footer-tagline">Educație pentru era inteligenței conștiente</div>
+    </div>
+    <p>Program educațional pentru copii 10–16 ani<br>România · 2025</p>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ ÎNSCRIERE ══════════════════════════════ -->
+<div class="page" id="page-inscriere">
+
+  <section class="inscriere-hero">
+    <div>
+      <div class="hero-eyebrow" style="margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);">
+        <span style="display:block;width:2rem;height:1px;background:var(--accent)"></span>Cohortă 2025
+      </div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:2rem;">Locuri limitate<br>pentru <em style="color:var(--accent);font-style:italic;">arhitecți</em><br>de sens</h1>
+      <p style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:3rem;">Fiecare cohortă are maxim 12 locuri pentru a asigura atenție individuală și calitate. Înscrierea nu garantează un loc — urmează o scurtă discuție cu fondatorul programului pentru a vedea potrivirea.</p>
+
+      <div class="cohort-details">
+        <div class="cohort-row">
+          <span class="label">Start cohortă</span>
+          <span class="value highlight">Septembrie 2025</span>
+        </div>
+        <div class="cohort-row">
+          <span class="label">Durată</span>
+          <span class="value">10 săptămâni</span>
+        </div>
+        <div class="cohort-row">
+          <span class="label">Format</span>
+          <span class="value">2 sesiuni / săptămână × 90 min</span>
+        </div>
+        <div class="cohort-row">
+          <span class="label">Vârsta recomandată</span>
+          <span class="value">10 – 16 ani</span>
+        </div>
+        <div class="cohort-row">
+          <span class="label">Locuri rămase</span>
+          <span class="value highlight">7 din 12</span>
+        </div>
+        <div class="cohort-row">
+          <span class="label">Modalitate</span>
+          <span class="value">Online · sesiuni live interactive</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-card">
+        <h3>Înscrie-te în cohortă</h3>
+        <p>Completează formularul și te contactăm în 48 de ore pentru o discuție de potrivire.</p>
+
+        <div class="form-group">
+          <label>Numele părintelui</label>
+          <input type="text" placeholder="Prenume Nume">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="adresa@email.ro">
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="tel" placeholder="07xx xxx xxx">
+        </div>
+        <div class="form-group">
+          <label>Prenumele copilului</label>
+          <input type="text" placeholder="Prenumele copilului">
+        </div>
+        <div class="form-group">
+          <label>Vârsta copilului</label>
+          <select>
+            <option value="">Selectează vârsta</option>
+            <option>10 ani</option>
+            <option>11 ani</option>
+            <option>12 ani</option>
+            <option>13 ani</option>
+            <option>14 ani</option>
+            <option>15 ani</option>
+            <option>16 ani</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ce te-a atras la program? (opțional)</label>
+          <textarea placeholder="Câteva cuvinte despre copilul tău și așteptările tale..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Trimite cererea de înscriere</button>
+        <div class="success-msg" id="success-msg">
+          ✓ Cererea ta a fost primită!<br>Te contactăm în maxim 48 de ore pentru discuția de potrivire.
+        </div>
+        <p class="form-note">Nu vei primi spam. Datele tale sunt confidențiale și folosite exclusiv pentru acest program.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-label">Întrebări frecvente</div>
+    <h2 class="section-title">Răspunsuri pentru<br>părinți curioși</h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are nevoie copilul meu de cunoștințe tehnice anterioare?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Nu. Programul este gândit pentru copii fără background tehnic. Ceea ce contează este curiozitatea și dorința de a explora. Toate conceptele sunt introduse progresiv, pornind de la zero.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Cum este diferit față de un curs obișnuit de programare sau robotică?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Cursurile de programare îi învață pe copii să scrie cod. Noi îi învățăm să gândească. Nu vom scrie cod — vom folosi IC ca instrument cognitiv pentru a rezolva probleme reale, a crea conținut autentic și a dezvolta gândirea critică. Este o diferență fundamentală de abordare.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Există riscul că copilul va folosi IC pentru a-și face temele?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Aceasta este exact conversația pe care o avem explicit cu copiii în prima sesiune. Ei înțeleg diferența dintre a folosi IC ca scurtătură și a o folosi ca amplificator al propriei gândiri. Programul construiește această discernere conștientă.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Ce echipament are nevoie copilul meu?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Un laptop sau desktop cu acces la internet și un browser modern (Chrome sau Firefox). Nu este nevoie de instalare de software specializat. Toate instrumentele folosite sunt accesibile prin browser.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Cum arată o sesiune tipică?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>O sesiune de 90 de minute are trei faze: 20 de minute de context și provocare (ce problemă rezolvăm azi?), 50 de minute de explorare și lucru activ cu IC, și 20 de minute de reflecție și discuție în grup. Fiecare sesiune produce ceva concret.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Există vreun examen sau evaluare la final?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Nu există examene tradiționale. Evaluarea se face prin proiecte — calitatea gândirii, originalitatea abordării și capacitatea de a prezenta și apăra o idee. Proiectul final este prezentat în fața grupului și a părinților.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Arhitecții <span>de Sens</span></div>
+      <div class="footer-tagline">Educație pentru era inteligenței conștiente</div>
+    </div>
+    <p>Program educațional pentru copii 10–16 ani<br>România · 2025</p>
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id)?.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      el.classList.add('open');
+    }
+  }
+
+  function submitForm() {
+    const inputs = document.querySelectorAll('#page-inscriere .form-group input, #page-inscriere .form-group select');
+    let valid = true;
+    inputs.forEach(i => { if (!i.value) valid = false; });
+    if (!valid) {
+      inputs.forEach(i => {
+        if (!i.value) i.style.borderColor = 'var(--accent)';
+        else i.style.borderColor = '';
+      });
+      return;
+    }
+    document.querySelector('.form-submit').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+</script>
+</body>
+</html>
